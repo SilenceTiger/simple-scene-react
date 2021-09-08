@@ -10,6 +10,10 @@
   "engines": {
     "node": ">=10"
   },
+  "repository": "https://github.com/SilenceTiger/simple-scene-react",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -33,8 +37,8 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "simple-scene",
-  "author": "lucong",
+  "name": "simple-scene-react",
+  "author": "silencetiger",
   "module": "dist/simple-scene.esm.js",
   "size-limit": [
     {

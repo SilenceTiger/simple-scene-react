@@ -4,18 +4,41 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { delay, clearScene } from './utils';
 export { delay, clearScene };
 
+interface RenderFunc {
+  (
+    target: SimpleScene,
+    scene: THREE.Scene,
+    camera: THREE.Camera,
+    width: number,
+    height: number
+  ): any;
+}
+
+interface AnimateFunc {
+  (
+    target: SimpleScene,
+    clock: THREE.Clock,
+    scene: THREE.Scene,
+    camera: THREE.Camera,
+    controls: any
+  ): any;
+}
+
+interface ClickFunc {
+  (target: any, scene: THREE.Scene): any;
+}
+
 interface Props {
   showAxisHelper?: boolean;
   className?: string;
   resizeEnable?: boolean;
   orbitControlsDisable?: boolean;
-  clickFunction?: Function;
-  beforeRender?: Function;
-  afterRender?: Function;
-  animate?: Function;
+  beforeRender?: RenderFunc;
+  afterRender?: RenderFunc;
+  animate?: AnimateFunc;
   useDefaultLight?: boolean;
   useDefaultCamera?: boolean;
-  onClick?: Function;
+  onClick?: ClickFunc;
 }
 
 const resolveBool = (b: boolean | undefined) => (b === undefined ? true : b);
@@ -25,7 +48,7 @@ interface State {}
 class SimpleScene extends React.Component<Props, State> {
   private domRef = React.createRef<HTMLDivElement>();
   private animateFrame: any;
-  private raycaster: any = new THREE.Raycaster()
+  private raycaster: any = new THREE.Raycaster();
   public scene: THREE.Scene;
   public camera: any = undefined;
   public renderer: THREE.Renderer;
@@ -107,14 +130,7 @@ class SimpleScene extends React.Component<Props, State> {
     this.renderer.render(this.scene, this.camera);
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.props.afterRender &&
-      this.props.afterRender(
-        this,
-        this.scene,
-        this.camera,
-        this.controls,
-        width,
-        height
-      );
+      this.props.afterRender(this, this.scene, this.camera, width, height);
     if (this.props.orbitControlsDisable) {
       this.controls.enabled = false;
     }
@@ -132,7 +148,7 @@ class SimpleScene extends React.Component<Props, State> {
   }
 
   onClickFn = (e: any) => {
-    if(this.props.onClick) {
+    if (this.props.onClick) {
       const width = this.container.clientWidth;
       const height = this.container.clientHeight;
       let rectObj = this.container.getBoundingClientRect();
@@ -140,9 +156,12 @@ class SimpleScene extends React.Component<Props, State> {
       let Sy = e.clientY - rectObj.top;
       let x = (Sx / width) * 2 - 1;
       let y = -(Sy / height) * 2 + 1;
-      this.raycaster.setFromCamera(new THREE.Vector2(x, y), this.camera)
-      let intersects: any = this.raycaster.intersectObjects(this.scene.children,false)
-      if(intersects[0]) {
+      this.raycaster.setFromCamera(new THREE.Vector2(x, y), this.camera);
+      let intersects: any = this.raycaster.intersectObjects(
+        this.scene.children,
+        false
+      );
+      if (intersects[0]) {
         this.props.onClick(intersects[0], this.scene);
       }
     }

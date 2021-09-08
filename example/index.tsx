@@ -73,7 +73,7 @@ const App = () => {
     // 默认存在环境光  new THREE.AmbientLight(0xffffff, 0.8);
     // 若不想使用可以 useDefaultLight = false
     // 点光源 
-    let point = new THREE.PointLight(0xEDF069, 1);
+    let point = new THREE.PointLight(0xEDF069, 2);
     point.position.set(0, 0, 0); 
     scene.add(point);
     // 平行光
@@ -100,7 +100,6 @@ const App = () => {
     target: SimpleScene,
     scene: THREE.Scene,
     camera: THREE.Camera,
-    controls: any, // lazy to import
     width?: number,
     height?: number
   ) => {
