@@ -67,14 +67,14 @@ interface ClickFunc {
 }
 
 ```
-
-#### 使用
-`import { clearScene } from 'simple-scene-react'`
-
-`clearScene(scene)`
 ## 5.示例
 [太地月三体运动](https://silencetiger.github.io/simple-scene-react/)
 源码可以见本仓库 `/example` 目录
 ## 6.备注
 提供清空场景方法 `clearScene`, 用于手动清空内存。
+#### 使用
+`import { clearScene } from 'simple-scene-react'`
+
+`clearScene(scene)`
+
 `SimpleScene` 在 `componentWillUnmount` 阶段已进行了清理。
