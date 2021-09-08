@@ -6,7 +6,8 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html --public-url /simple-scene-react/",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "d": "parcel build index.html --public-url /simple-scene-react/ && gh-pages -d dist"
   },
   "dependencies": {
     "gh-pages": "^3.2.3",
