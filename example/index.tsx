@@ -20,11 +20,7 @@ const stars = [
   new Star('Moon', require('./texture/moon.jpg'), 30, [800, 0, 0], 0, 5, 150),
 ];
 
-const earthImg = require('./texture/earth.jpg');
-
 const ImageLoader = new THREE.ImageLoader();
-
-let sphereMesh: any;
 
 const App = () => {
   const addStars = async (scene: THREE.Scene) => {
