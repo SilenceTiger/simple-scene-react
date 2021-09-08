@@ -70,6 +70,7 @@ interface ClickFunc {
 
 #### 使用
 `import { clearScene } from 'simple-scene-react'`
+
 `clearScene(scene)`
 ## 5.示例
 [太地月三体运动](https://silencetiger.github.io/simple-scene-react/)

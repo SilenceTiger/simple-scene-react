@@ -38,6 +38,10 @@
     "trailingComma": "es5"
   },
   "name": "simple-scene-react",
+  "keywords": [
+    "three.js",
+    "react"
+  ],
   "author": "silencetiger",
   "module": "dist/simple-scene.esm.js",
   "size-limit": [
