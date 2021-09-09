@@ -139,7 +139,7 @@ const App = () => {
   };
 
   const onClick = (target: any, scene: THREE.Scene) => {
-    alert(target?.object.name)
+    console.log(target?.object.name)
   }
 
   return (

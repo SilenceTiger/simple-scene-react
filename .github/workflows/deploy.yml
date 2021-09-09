@@ -1,0 +1,28 @@
+name: publish page
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: install and build
+        run: |
+          npm ci
+          npm run build
+        working-directory: ./example
+      - name: publish page
+        uses: crazy-max/ghaction-github-pages@v1
+        with: 
+          target_branch: gh-pages
+          build_dir: example/dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
