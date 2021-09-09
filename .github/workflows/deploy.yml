@@ -17,6 +17,9 @@ jobs:
       - name: install and build
         run: |
           npm ci
+      - name: install and build
+        run: |
+          npm ci
           npm run build
         working-directory: ./example
       - name: publish page
