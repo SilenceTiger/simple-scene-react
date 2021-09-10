@@ -23,6 +23,64 @@
   onClick={onClick}
 /> 
 ```
+### 例1
+
+建立场景 使用默认配置 显示辅助坐标轴
+```
+import React = require('react')
+import SimpleScene from 'simple-scene-react'
+
+const Scene3D = () => {
+  return <SimpleScene className="container-3d" showAxisHelper={true} />
+}
+
+export default Scene3D
+
+```
+
+### 例2
+
+官方示例，旋转的正方体
+```
+import React = require('react')
+import SimpleScene from 'simple-scene-react'
+import * as THREE from 'three'
+import './style.css'
+
+let cube: THREE.Mesh
+
+const addLight = (scene: THREE.Scene) => {
+  let point = new THREE.PointLight(0xedf069, 2)
+  point.position.set(200, 200, 0)
+  scene.add(point)
+}
+
+const addMesh = (scene: THREE.Scene) => {
+  const geometry = new THREE.BoxGeometry(100, 100, 100)
+  const material = new THREE.MeshPhongMaterial({ color: 0x00ff00 })
+  cube = new THREE.Mesh(geometry, material)
+  scene.add(cube)
+}
+
+const Scene3D = () => {
+  const beforeRender = async (target: any, scene: THREE.Scene, camera: THREE.Camera, width: number, height: number) => {
+    addLight(scene)
+    addMesh(scene)
+  }
+
+  const animate = () => {
+    cube.rotation.x += 0.01
+    cube.rotation.y += 0.01
+  }
+
+  return <SimpleScene className="container-3d" showAxisHelper={true} beforeRender={beforeRender} animate={animate} />
+}
+
+export default Scene3D
+```
+
+更常见的应用见 `5.示例`
+
 `SimpleScene`的宽度、高度由外层容器决定。
 
 ## 3.API
