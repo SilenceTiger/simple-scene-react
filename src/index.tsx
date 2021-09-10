@@ -198,8 +198,6 @@ class SimpleScene extends React.Component<Props, State> {
         style={{
           width: '100%',
           height: '100%',
-          position: 'absolute',
-          zIndex: 10,
         }}
       ></div>
     );
