@@ -127,10 +127,14 @@ interface ClickFunc {
 
 ```
 ## 5.示例
-[初始化](https://silencetiger.github.io/simple-scene-react/)
+[初始化](https://silencetiger.github.io/simple-scene-react/#/step1)
 
+[官方示例复刻](https://silencetiger.github.io/simple-scene-react/#/step2)
 
-[太地月三体运动](https://silencetiger.github.io/simple-scene-react/)
+[太地月三体运动](https://silencetiger.github.io/simple-scene-react/#/)
+
+[官方示例复刻](https://silencetiger.github.io/simple-scene-react/#/map)
+
 源码可以见本仓库 `/example` 目录
 ## 6.备注
 提供清空场景方法 `clearScene`, 用于手动清空内存。
