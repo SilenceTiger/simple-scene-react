@@ -39,6 +39,7 @@ interface Props {
   useDefaultLight?: boolean;
   useDefaultCamera?: boolean;
   onClick?: ClickFunc;
+  style?: any
 }
 
 const resolveBool = (b: boolean | undefined) => (b === undefined ? true : b);
@@ -164,6 +165,9 @@ class SimpleScene extends React.Component<Props, State> {
       if (intersects[0]) {
         this.props.onClick(intersects[0], this.scene);
       }
+      else {
+        this.props.onClick(null, this.scene)
+      }
     }
   };
 
@@ -198,6 +202,7 @@ class SimpleScene extends React.Component<Props, State> {
         style={{
           width: '100%',
           height: '100%',
+          ...this.props.style
         }}
       ></div>
     );

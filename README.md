@@ -88,6 +88,7 @@ export default Scene3D
 | 属性    | 说明  | 类型 | 默认值 |
 |  ----  | ----  | ---- | ---- |
 | className  | 容器类名 | string | - |
+| style  | 样式 | any | - |
 | showAxisHelper  | 是否显示坐标辅助 | boolean | false |
 | resizeEnable  | 是否开启resize功能 | boolean | false |
 | orbitControlsDisable  | 是否禁用OrbitControls，默认不禁用 | boolean | false |
@@ -126,6 +127,9 @@ interface ClickFunc {
 
 ```
 ## 5.示例
+[初始化](https://silencetiger.github.io/simple-scene-react/)
+
+
 [太地月三体运动](https://silencetiger.github.io/simple-scene-react/)
 源码可以见本仓库 `/example` 目录
 ## 6.备注
