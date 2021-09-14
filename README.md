@@ -134,7 +134,7 @@ interface ClickFunc {
 
 [太地月三体运动](https://silencetiger.github.io/simple-scene-react/#/stars)
 
-[官方示例复刻](https://silencetiger.github.io/simple-scene-react/#/map)
+[地图飞线](https://silencetiger.github.io/simple-scene-react/#/map)
 
 源码可以见本仓库 `/example` 目录
 ## 6.备注
