@@ -131,7 +131,7 @@ interface ClickFunc {
 
 [官方示例复刻](https://silencetiger.github.io/simple-scene-react/#/step2)
 
-[太地月三体运动](https://silencetiger.github.io/simple-scene-react/#/)
+[太地月三体运动](https://silencetiger.github.io/simple-scene-react/#/stars)
 
 [官方示例复刻](https://silencetiger.github.io/simple-scene-react/#/map)
 
