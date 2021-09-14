@@ -11,7 +11,8 @@ const addLight = (scene: THREE.Scene) => {
   scene.add(point);
 };
 
-const addMesh = (scene: THREE.Scene) => {
+const addMesh = (scene: THREE.Scene, data: number) => {
+  console.log(data);
   const cubeGeo = new THREE.BoxGeometry(100, 100, 100);
   const spGeo = new THREE.SphereGeometry(50, 50, 50);
   const material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
@@ -24,6 +25,20 @@ const addMesh = (scene: THREE.Scene) => {
 };
 
 const Scene3D = () => {
+  const [data, setData] = React.useState(1);
+  const [refresh, setRefresh] = React.useState(false);
+
+  React.useEffect(() => {
+    let timer = setInterval(() => {
+      setData(d => d + 1);
+      setRefresh(r => !r)
+    }, 10000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+
   const beforeRender = async (
     target: any,
     scene: THREE.Scene,
@@ -32,7 +47,7 @@ const Scene3D = () => {
     height: number
   ) => {
     addLight(scene);
-    addMesh(scene);
+    addMesh(scene, data);
   };
 
   const animate = () => {
@@ -48,6 +63,7 @@ const Scene3D = () => {
       showAxisHelper={true}
       beforeRender={beforeRender}
       animate={animate}
+      refresh={refresh}
     />
   );
 };

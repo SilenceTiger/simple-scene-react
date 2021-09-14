@@ -85,18 +85,19 @@ export default Scene3D
 
 ## 3.API
 均非必填
-| 属性    | 说明  | 类型 | 默认值 |
-|  ----  | ----  | ---- | ---- |
-| className  | 容器类名 | string | - |
-| style  | 样式 | any | - |
-| showAxisHelper  | 是否显示坐标辅助 | boolean | false |
-| resizeEnable  | 是否开启resize功能 | boolean | false |
-| orbitControlsDisable  | 是否禁用OrbitControls，默认不禁用 | boolean | false |
-| useDefaultLight  | 是否使用默认灯光，默认使用 | boolean | true |
-| useDefaultCamera  | 是否使用默认摄像机，默认使用 | boolean | true |
-| beforeRender  | render之前的回调函数，在此函数中可以添加控制灯光、摄像机、Mesh等 | Function | - |
-| afterRender  | render之后的回调函数，在此函数中可以添加控制灯光、摄像机、Mesh、controls等 | Function | - |
-| animate  | 动画执行过程中的回调 | Function | - |
+| 属性    | 说明  | 类型 | 默认值 | 版本 |
+|  ----  | ----  | ---- | ---- | ----- |
+| className  | 容器类名 | string | - | - |
+| style  | 样式 | any | - | - |
+| showAxisHelper  | 是否显示坐标辅助 | boolean | false | - |
+| resizeEnable  | 是否开启resize功能 | boolean | false | - |
+| orbitControlsDisable  | 是否禁用OrbitControls，默认不禁用 | boolean | false | - |
+| useDefaultLight  | 是否使用默认灯光，默认使用 | boolean | true | - |
+| useDefaultCamera  | 是否使用默认摄像机，默认使用 | boolean | true | - |
+| beforeRender  | render之前的回调函数，在此函数中可以添加控制灯光、摄像机、Mesh等 | Function | - | - |
+| afterRender  | render之后的回调函数，在此函数中可以添加控制灯光、摄像机、Mesh、controls等 | Function | - | - |
+| animate  | 动画执行过程中的回调 | Function | - | - |
+| refresh  | refresh值变化会刷新整个场景，提供外部变化需要修改场景的情况（如轮询，重新获取数据等）。ps：会销毁之前的场景，见官方示例复刻版。 | boolean | - | 1.0.2 |
 
 ## 4.回调函数参数
 ```

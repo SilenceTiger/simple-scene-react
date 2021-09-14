@@ -40,6 +40,7 @@ interface Props {
   useDefaultCamera?: boolean;
   onClick?: ClickFunc;
   style?: any
+  refresh?: boolean
 }
 
 const resolveBool = (b: boolean | undefined) => (b === undefined ? true : b);
@@ -68,6 +69,12 @@ class SimpleScene extends React.Component<Props, State> {
 
   componentDidMount() {
     this.init();
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
+    if(nextProps.refresh !== this.props.refresh) {
+      this.init()
+    }
   }
 
   async init() {
