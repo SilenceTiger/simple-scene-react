@@ -7,6 +7,7 @@ import Step1 from './pages/step1';
 import Step2 from './pages/step2';
 import ThreeStar from './pages/stars';
 import Map from './pages/map'
+import Building from './pages/building'
 import './index.css';
 
 const Menu = () => {
@@ -25,6 +26,9 @@ const Menu = () => {
       <Link to="/map" target="_blank">
         4.Map飞线
       </Link>
+      <Link to="/building" target="_blank">
+        5.Building
+      </Link>
     </div>
   );
 };
@@ -39,6 +43,7 @@ const App = () => {
           <Route path="/step2" component={Step2} />
           <Route path="/stars" component={ThreeStar} />
           <Route path="/map" component={Map} />
+          <Route path="/building" component={Building} />
           <Route path="/" render={() => <Redirect to="/menu" />} />
         </Switch>
       </HashRouter>

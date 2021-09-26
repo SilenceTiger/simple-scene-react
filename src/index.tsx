@@ -57,6 +57,7 @@ class SimpleScene extends React.Component<Props, State> {
   public container: any;
   public controls: any;
   public clock: THREE.Clock = new THREE.Clock();
+  public intersectArray: any
   constructor(props: any) {
     super(props);
     this.scene = new THREE.Scene();
@@ -149,6 +150,10 @@ class SimpleScene extends React.Component<Props, State> {
     window.addEventListener('resize', this.onWindowResize);
   }
 
+  setIntersectArray(arr: any) {
+    this.intersectArray = arr
+  }
+
   componentWillUnmount() {
     clearScene(this.scene);
     window.removeEventListener('click', this.onClickFn);
@@ -166,7 +171,7 @@ class SimpleScene extends React.Component<Props, State> {
       let y = -(Sy / height) * 2 + 1;
       this.raycaster.setFromCamera(new THREE.Vector2(x, y), this.camera);
       let intersects: any = this.raycaster.intersectObjects(
-        this.scene.children,
+        this.intersectArray || this.scene.children,
         false
       );
       if (intersects[0]) {
