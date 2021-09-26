@@ -136,6 +136,9 @@ interface ClickFunc {
 
 [地图飞线](https://silencetiger.github.io/simple-scene-react/#/map)
 
+[建筑大屏](https://silencetiger.github.io/simple-scene-react/#/building)
+
+
 源码可以见本仓库 `/example` 目录
 ## 6.备注
 提供清空场景方法 `clearScene`, 用于手动清空内存。
