@@ -8,6 +8,8 @@ import Step2 from './pages/step2';
 import ThreeStar from './pages/stars';
 import Map from './pages/map'
 import Building from './pages/building'
+import Tiananmen from './pages/tiananmen'
+import Shader from './pages/shader'
 import './index.css';
 
 const Menu = () => {
@@ -29,6 +31,12 @@ const Menu = () => {
       <Link to="/building" target="_blank">
         5.Building
       </Link>
+      <Link to="/tiananmen" target="_blank">
+        6.天安门
+      </Link>
+      <Link to="/shader" target="_blank">
+        7.纵向扫描+composer
+      </Link>
     </div>
   );
 };
@@ -44,6 +52,8 @@ const App = () => {
           <Route path="/stars" component={ThreeStar} />
           <Route path="/map" component={Map} />
           <Route path="/building" component={Building} />
+          <Route path="/tiananmen" component={Tiananmen} />
+          <Route path="/shader" component={Shader} />
           <Route path="/" render={() => <Redirect to="/menu" />} />
         </Switch>
       </HashRouter>

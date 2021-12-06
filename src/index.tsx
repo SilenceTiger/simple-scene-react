@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { delay, clearScene } from './utils';
 export { delay, clearScene };
 
@@ -24,6 +26,17 @@ interface AnimateFunc {
   ): any;
 }
 
+interface AddPassFunc {
+  (
+    composer: EffectComposer,
+    renderer: THREE.WebGLRendererParameters,
+    scene: THREE.Scene,
+    camera: THREE.Camera,
+    width: number,
+    height: number
+  ): any;
+}
+
 interface ClickFunc {
   (target: any, scene: THREE.Scene): any;
 }
@@ -39,8 +52,9 @@ interface Props {
   useDefaultLight?: boolean;
   useDefaultCamera?: boolean;
   onClick?: ClickFunc;
-  style?: any
-  refresh?: boolean
+  style?: any;
+  refresh?: boolean;
+  addPass?: AddPassFunc;
 }
 
 const resolveBool = (b: boolean | undefined) => (b === undefined ? true : b);
@@ -53,11 +67,12 @@ class SimpleScene extends React.Component<Props, State> {
   private raycaster: any = new THREE.Raycaster();
   public scene: THREE.Scene;
   public camera: any = undefined;
-  public renderer: THREE.Renderer;
+  public renderer: THREE.WebGLRendererParameters | any;
+  public composer!: EffectComposer;
   public container: any;
   public controls: any;
   public clock: THREE.Clock = new THREE.Clock();
-  public intersectArray: any
+  public intersectArray: any;
   constructor(props: any) {
     super(props);
     this.scene = new THREE.Scene();
@@ -73,8 +88,8 @@ class SimpleScene extends React.Component<Props, State> {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    if(nextProps.refresh !== this.props.refresh) {
-      this.init()
+    if (nextProps.refresh !== this.props.refresh) {
+      this.init();
     }
   }
 
@@ -91,6 +106,12 @@ class SimpleScene extends React.Component<Props, State> {
     await this.renderData(width, height);
     this.startRender(width, height);
     this.addEvent();
+
+    this.composer = new EffectComposer(this.renderer);
+    let renderPass = new RenderPass(this.scene, this.camera);
+    this.composer.addPass(renderPass);
+    this.props.addPass && this.props.addPass(this.composer, this.renderer, this.scene, this.camera, width, height);
+
   }
 
   addAxisHelper() {
@@ -151,7 +172,7 @@ class SimpleScene extends React.Component<Props, State> {
   }
 
   setIntersectArray(arr: any) {
-    this.intersectArray = arr
+    this.intersectArray = arr;
   }
 
   componentWillUnmount() {
@@ -176,9 +197,8 @@ class SimpleScene extends React.Component<Props, State> {
       );
       if (intersects[0]) {
         this.props.onClick(intersects[0], this.scene);
-      }
-      else {
-        this.props.onClick(null, this.scene)
+      } else {
+        this.props.onClick(null, this.scene);
       }
     }
   };
@@ -194,7 +214,8 @@ class SimpleScene extends React.Component<Props, State> {
   };
 
   renderGL() {
-    this.renderer.render(this.scene, this.camera);
+    // this.renderer.render(this.scene, this.camera);
+    this.composer && this.composer.render();
     this.props.animate &&
       this.props.animate(
         this,
@@ -214,7 +235,7 @@ class SimpleScene extends React.Component<Props, State> {
         style={{
           width: '100%',
           height: '100%',
-          ...this.props.style
+          ...this.props.style,
         }}
       ></div>
     );
