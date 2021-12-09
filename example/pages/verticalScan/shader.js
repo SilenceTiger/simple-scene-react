@@ -64,7 +64,8 @@ export const ScanShader2 = {
             // vec3 gradient =  mix(color1, color2, v_py / maxH); //内置 smoothstep法渐变 与下句等价 [0, maxH] => [0, 1]
             vec3 gradient =  mix(color1, color2, smoothstep(0.0, maxH, v_py));
             // gl_FragColor = vec4(gradient, 1.0); // 直接使用渐变色
-            gl_FragColor = mix(texture2D(texture1, vUv),vec4(gradient,0.8),0.85);  //再混合材质
+            gl_FragColor = mix(texture2D(texture1, vUv),vec4(gradient,0.8),0.1);  //再混合材质
+            gl_FragColor = texture2D(texture1, vUv);
         }
     `,
 };
@@ -116,7 +117,8 @@ export const ScanShader3 = {
             uniform float lightWidth;
             uniform float maxH;
             float plot (float pct){
-              return  smoothstep( pct-lightWidth, pct, v_py) - smoothstep( pct, pct+0.02, v_py);
+              return  smoothstep( pct-lightWidth, pct, v_py) - smoothstep( pct, pct + 
+                0.1, v_py);
             }
             void main() {
               float f1 = plot(lightHeight);

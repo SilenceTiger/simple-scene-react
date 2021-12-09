@@ -98,6 +98,7 @@ export default Scene3D
 | afterRender  | render之后的回调函数，在此函数中可以添加控制灯光、摄像机、Mesh、controls等 | Function | - | - |
 | animate  | 动画执行过程中的回调 | Function | - | - |
 | refresh  | refresh值变化会刷新整个场景，提供外部变化需要修改场景的情况（如轮询，重新获取数据等）。ps：会销毁之前的场景，见官方示例复刻版。 | boolean | - | 1.0.2 |
+| addPass  | 动画执行过程中的回调 | Function | - | 1.0.5 |
 
 ## 4.回调函数参数
 ```
@@ -137,6 +138,15 @@ interface ClickFunc {
 [地图飞线](https://silencetiger.github.io/simple-scene-react/#/map)
 
 [建筑大屏](https://silencetiger.github.io/simple-scene-react/#/building)
+
+[天安门dae](https://silencetiger.github.io/simple-scene-react/#/tiananmen)
+
+[纵向扫描](https://silencetiger.github.io/simple-scene-react/#/vertical-scan)
+
+[横向扫描](https://silencetiger.github.io/simple-scene-react/#/horizontal-scan)
+
+[cssRender + webglRedner](https://silencetiger.github.io/simple-scene-react/#/css-render)
+
 
 
 源码可以见本仓库 `/example` 目录

@@ -1,42 +1,76 @@
 import 'react-app-polyfill/ie11';
-import 'regenerator-runtime/runtime'
+import 'regenerator-runtime/runtime';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { HashRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 import Step1 from './pages/step1';
 import Step2 from './pages/step2';
 import ThreeStar from './pages/stars';
-import Map from './pages/map'
-import Building from './pages/building'
-import Tiananmen from './pages/tiananmen'
-import Shader from './pages/shader'
+import Map from './pages/map';
+import Building from './pages/building';
+import Tiananmen from './pages/tiananmen';
+import VerticalScan from './pages/verticalScan';
+import HorizontalScan from './pages/horizontalScan';
+import CssRender from './pages/cssRender';
 import './index.css';
+
+const MENU_DATA = [
+  {
+    title: '初始化',
+    path: '/step1',
+    component: Step1,
+  },
+  {
+    title: '官方示例复刻',
+    path: '/step2',
+    component: Step2,
+  },
+  {
+    title: '太地月三体运动',
+    path: '/stars',
+    component: ThreeStar,
+  },
+  {
+    title: 'Map飞线',
+    path: '/map',
+    component: Map,
+  },
+  {
+    title: '建筑大屏demo',
+    path: '/building',
+    component: Building,
+  },
+  {
+    title: '天安门',
+    path: '/tiananmen',
+    component: Tiananmen,
+  },
+  {
+    title: '纵向扫描+composer',
+    path: '/vertical-scan',
+    component: VerticalScan,
+  },
+  {
+    title: '横向扫描+叠加点光',
+    path: '/horizontal-scan',
+    component: HorizontalScan,
+  },
+  {
+    title: 'with css render',
+    path: '/css-render',
+    component: CssRender,
+  },
+];
 
 const Menu = () => {
   return (
     <div className="menu-container">
       <div className="title">Menu</div>
-      <Link to="/step1" target="_blank">
-        1.初始化
-      </Link>
-      <Link to="/step2" target="_blank">
-        2.官方示例复刻
-      </Link>
-      <Link to="/stars" target="_blank">
-        3.太地月三体运动
-      </Link>
-      <Link to="/map" target="_blank">
-        4.Map飞线
-      </Link>
-      <Link to="/building" target="_blank">
-        5.Building
-      </Link>
-      <Link to="/tiananmen" target="_blank">
-        6.天安门
-      </Link>
-      <Link to="/shader" target="_blank">
-        7.纵向扫描+composer
-      </Link>
+      {MENU_DATA.map(item => (
+        <Link to={item.path} key={item.path} target="_blank">
+          {item.title}
+        </Link>
+      ))}
     </div>
   );
 };
@@ -46,14 +80,8 @@ const App = () => {
     <div className="container">
       <HashRouter basename="/">
         <Switch>
+          {MENU_DATA.map(item => (<Route path={item.path} key={item.path} component={item.component} />))}
           <Route path="/menu" component={Menu} />
-          <Route path="/step1" component={Step1} />
-          <Route path="/step2" component={Step2} />
-          <Route path="/stars" component={ThreeStar} />
-          <Route path="/map" component={Map} />
-          <Route path="/building" component={Building} />
-          <Route path="/tiananmen" component={Tiananmen} />
-          <Route path="/shader" component={Shader} />
           <Route path="/" render={() => <Redirect to="/menu" />} />
         </Switch>
       </HashRouter>

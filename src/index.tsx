@@ -154,7 +154,6 @@ class SimpleScene extends React.Component<Props, State> {
 
   startRender(width: number, height: number) {
     this.renderer.setSize(width, height); //设置渲染区域尺寸
-    this.container.innerHTML = '';
     this.container.appendChild(this.renderer.domElement);
     this.renderGL();
     this.renderer.render(this.scene, this.camera);
