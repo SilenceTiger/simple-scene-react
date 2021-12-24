@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@types/echarts": "^4.9.10",
+    "animejs": "^3.2.1",
     "d3-geo": "^3.0.1",
     "echarts": "^5.2.1",
     "echarts-for-react": "^3.0.1",
