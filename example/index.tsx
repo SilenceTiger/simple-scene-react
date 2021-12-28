@@ -12,6 +12,7 @@ import Tiananmen from './pages/tiananmen';
 import VerticalScan from './pages/verticalScan';
 import HorizontalScan from './pages/horizontalScan';
 import CssRender from './pages/cssRender';
+import Travel from './pages/travel';
 import './index.css';
 
 const MENU_DATA = [
@@ -56,9 +57,14 @@ const MENU_DATA = [
     component: HorizontalScan,
   },
   {
-    title: 'with css render',
+    title: 'CssRender + WebglRender + Anime',
     path: '/css-render',
     component: CssRender,
+  },
+  {
+    title: 'Travel',
+    path: '/travel',
+    component: Travel,
   },
 ];
 
