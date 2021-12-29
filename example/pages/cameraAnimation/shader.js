@@ -64,43 +64,44 @@ export const ScanShader2 = {
             // vec3 gradient =  mix(color1, color2, v_py / maxH); //内置 smoothstep法渐变 与下句等价 [0, maxH] => [0, 1]
             vec3 gradient =  mix(color1, color2, smoothstep(0.0, maxH, v_py));
             // gl_FragColor = vec4(gradient, 1.0); // 直接使用渐变色
-            gl_FragColor = mix(texture2D(texture1, vUv),vec4(gradient,0.8),0.85);  //再混合材质
+            gl_FragColor = mix(texture2D(texture1, vUv),vec4(gradient,0.8),0.1);  //再混合材质
+            gl_FragColor = texture2D(texture1, vUv);
         }
     `,
 };
 
-
+// 3.渐变色 + 纹理图片 + 光效
 export const ScanShader3 = {
   uniforms: {
-    ...THREE.UniformsLib['lights'],
     texture1: {
       value: textureLoader.load(require('./texture/house_1.png')),
     },
+    color1: {
+      value: new THREE.Color('#001327'),
+    },
+    color2: {
+      value: new THREE.Color('#00FFFF'),
+    },
     colorGo: {
-      value: new THREE.Color('#9C59FF'),
+      value: new THREE.Color('#ff6713'),
     },
-    scanX: {
-      value: 0, // 如何转变为全局坐标
+    maxH: {
+      value: 200.0, //最大值
     },
-    scanXWidth: {
-      value: 20,
+    lightHeight: {
+      //光的高度
+      value: 0,
     },
-    ambientLightColor: {
-      value: new THREE.Color('#FFFFFF'),
+    lightWidth: {
+      //光的宽度
+      value: 40,
     },
   },
   vertexShader: `
             varying vec2 vUv;
             varying float v_py;
-            varying float v_px;
-            varying vec3 vPos;
-            varying vec3 vNormal;
             void main() {
                 vUv = uv;
-                vec4 worldPosition = modelMatrix * vec4(position, 1.0);
-                vPos = (modelMatrix * vec4(position, 1.0 )).xyz;
-                vNormal = normalMatrix * normal;
-                v_px = worldPosition.x;
                 v_py = position.y;
                 gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
             }
@@ -108,43 +109,23 @@ export const ScanShader3 = {
   fragmentShader: `
             uniform sampler2D texture1;
             varying vec2 vUv;
-            varying float v_px;
+            varying float v_py;
+            uniform vec3 color1;
+            uniform vec3 color2;
             uniform vec3 colorGo;
-            uniform float scanX; 
-            uniform float scanXWidth;
-
-            varying vec3 vPos;
-            varying vec3 vNormal;
-            struct PointLight {
-              vec3 position;
-              vec3 color;
-            };
-            uniform PointLight pointLights[ NUM_POINT_LIGHTS ];
-
-            float plotX (float _scanX){
-              return  smoothstep(_scanX - scanXWidth, _scanX, v_px) - smoothstep(_scanX, _scanX+0.02, v_px);
+            uniform float lightHeight;
+            uniform float lightWidth;
+            uniform float maxH;
+            float plot (float pct){
+              return  smoothstep( pct-lightWidth, pct, v_py) - smoothstep( pct, pct + 
+                0.1, v_py);
             }
-
             void main() {
-              vec4 addedLights = vec4(0.1, 0.1, 0.1, 1.0);
-              for(int l = 0; l < NUM_POINT_LIGHTS; l++) {
-                vec3 adjustedLight = pointLights[l].position + cameraPosition;
-                vec3 lightDirection = normalize(vPos - adjustedLight);
-                addedLights.rgb += clamp(dot(-lightDirection, vNormal), 0.0, 1.0) * pointLights[l].color;
-              }
-
-              gl_FragColor = texture2D(texture1, vUv);
-
-              float f2 = plotX(scanX);
-              if(abs(v_px - scanX) <= scanXWidth){
-                vec4 scanColor = vec4(colorGo.r, colorGo.g, colorGo.b, (1.0 - abs(v_px - scanX) / scanXWidth) * 0.9);
-                gl_FragColor = mix(vec4(gl_FragColor.r,gl_FragColor.g,gl_FragColor.b,1), scanColor, 0.5);
-              }
-
-              gl_FragColor = mix(gl_FragColor, addedLights, 0.5);
-
+              float f1 = plot(lightHeight);
+              vec4 b1 = vec4(colorGo.r, colorGo.g, colorGo.b, 1.0) ;
+              vec3 gradient =  mix(color1, color2, v_py / maxH); //内置 smoothstep法渐变
+              gl_FragColor = mix(vec4(gradient,1.),b1,f1);  //渐变与光效混合
+              gl_FragColor = mix(texture2D(texture1, vUv),vec4(gl_FragColor.r,gl_FragColor.g,gl_FragColor.b,0.9),0.9);  //再混合材质
           }
       `,
 };
-
-// (1.0 - abs(v_px - scanX) / scanXWidth) * 0.9

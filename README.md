@@ -145,8 +145,11 @@ interface ClickFunc {
 
 [横向扫描](https://silencetiger.github.io/simple-scene-react/#/horizontal-scan)
 
-[cssRender + webglRedner](https://silencetiger.github.io/simple-scene-react/#/css-render)
+[CssRender + WebglRender + Anime](https://silencetiger.github.io/simple-scene-react/#/css-render)
 
+[沿着轨迹移动与转动](https://silencetiger.github.io/simple-scene-react/#/travel)
+
+[相机移动](https://silencetiger.github.io/simple-scene-react/#/camera-animation)
 
 
 源码可以见本仓库 `/example` 目录

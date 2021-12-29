@@ -13,6 +13,7 @@ import VerticalScan from './pages/verticalScan';
 import HorizontalScan from './pages/horizontalScan';
 import CssRender from './pages/cssRender';
 import Travel from './pages/travel';
+import CameraAnimation from './pages/cameraAnimation';
 import './index.css';
 
 const MENU_DATA = [
@@ -66,6 +67,11 @@ const MENU_DATA = [
     path: '/travel',
     component: Travel,
   },
+  {
+    title: '相机动画',
+    path: '/camera-animation',
+    component: CameraAnimation,
+  }
 ];
 
 const Menu = () => {
