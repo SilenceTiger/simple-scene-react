@@ -80,7 +80,7 @@ const animateCamera = (
         z: 300
       },
     ],
-
+    loop: true,
     duration: 12000,
     easing: 'linear',
     begin: (ani) => {
